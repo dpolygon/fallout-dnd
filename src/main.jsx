@@ -10,6 +10,7 @@ import './index.css'
 import Navbar from './components/navbar.jsx'
 import Home from './routes/Home.jsx'
 import Armor from './routes/Armor.jsx'
+import ArmorDetail from './routes/ArmorDetail.jsx'
 
 const Applayout = () => {
   return (
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: '/armor',
         element: <Armor/>
+      }, 
+      {
+        path: '/armor/:armorId',
+        element: <ArmorDetail/>
+      },
+      {
+        path: '/power_armor/:armorId',
+        element: <ArmorDetail/>
       }
     ]
   }

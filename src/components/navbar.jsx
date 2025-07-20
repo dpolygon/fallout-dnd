@@ -3,7 +3,6 @@ import './navbar.css'
 import { NavLink, useLocation } from 'react-router-dom'
 import { HiBars2 } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";
-import FalloutLogo from '/Fallout_logo.svg';
 
 
 export default function Navbar() {
@@ -32,16 +31,17 @@ export default function Navbar() {
     };
   }, [active]);
 
-  const routeTitles = {
-    '/': 'Home',
-    '/armor': 'Armor',
-    '/commercial': 'Commercial',
-    '/contact': 'Contact',
-    '/about': 'About Us',
+  const getRouteTitle = (pathname) => {
+    if (pathname === '/') return 'Home';
+    if (pathname.startsWith('/armor') || pathname.startsWith('/power_armor')) return 'Armor';
+    if (pathname.startsWith('/commercial')) return 'Commercial';
+    if (pathname.startsWith('/contact')) return 'Contact';
+    if (pathname.startsWith('/about')) return 'About Us';
+    return 'Fallout App'; // fallback
   };
 
-  const location = useLocation();
-  const pageTitle = routeTitles[location.pathname];
+  const pageTitle = getRouteTitle(location.pathname);
+
 
   return (
     <nav ref={menuRef} className='navbar'>
@@ -56,7 +56,7 @@ export default function Navbar() {
                 <path fill="currentColor" d="M7833 222l-26-39a24 24 0 0 0 22-25c0-16-9-25-29-25h-34v89h11v-39h18l25 39zm-42-48h-14v-31h20c10 0 21 2 21 15 0 15-14 16-27 16z" />
               </svg>
               <img
-                src='dnd.svg'
+                src='/dnd.svg'
               />
             </div>
             <div onClick={handleClick}>

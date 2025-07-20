@@ -35,18 +35,18 @@ export default function Armor() {
     return (
         <div style={{margin: '10rem 0 0 0'}}>
             <h2>Armor</h2>
-            <ul>
+            <ul style={{padding: '0'}}>
                 {armorData.map(armor =>
-                    <li key={armor.name}>
-                        {armor.name} – AC: {armor.ac}, DT: {armor.dt}, {armor.description}
+                    <li onClick={() => window.location.href = `/armor/${armor.name}`} style={{cursor: 'pointer', listStyleType: 'none'}} key={armor.name}>
+                        {armor.name}
                     </li>
                 )}
             </ul>
             <h2>Power Armor</h2>
-            <ul>
+            <ul style={{padding: '0'}}>
                 {powerArmorData.map(armor =>
-                    <li key={armor.name}>
-                        {armor.name} – AC: {armor.ac}, DP: {armor.dp}, {armor.description}
+                    <li onClick={() => window.location.href = `/power_armor/${armor.name}`} style={{cursor: 'pointer', listStyleType: 'none'}} key={armor.name}>
+                        {armor.name}
                     </li>
                 )}
             </ul>
