@@ -65,25 +65,25 @@ export default function Navbar() {
           </div>
         </div>
         <div className='menu-selection'>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 0 }} to='/'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 1 }} to='/'>
             HOME
           </NavLink>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 1 }} to='weapons'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 2 }} to='/weapons'>
             WEAPONS
           </NavLink>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 2 }} to='armor'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 3 }} to='/armor'>
             ARMOR
           </NavLink>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 3 }} to='aid'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 4 }} to='/aid'>
             AID
           </NavLink>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 4 }} to='junk'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 5 }} to='/misc'>
             MISC
           </NavLink>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 4 }} to='junk'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 6 }} to='/junk'>
             JUNK
           </NavLink>
-          <NavLink onClick={handleClick} className='menu-links' style={{ '--i': 4 }} to='junk'>
+          <NavLink onClick={handleClick} className={active === false ? 'menu-links-closing' : 'menu-links'} style={{ '--i': 7 }} to='/ammo'>
             AMMO
           </NavLink>
         </div>
