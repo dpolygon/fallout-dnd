@@ -11,6 +11,7 @@ import Navbar from './components/navbar.jsx'
 import Home from './routes/Home.jsx'
 import Armor from './routes/Armor.jsx'
 import ArmorDetail from './routes/ArmorDetail.jsx'
+import ArmorUpgrade from './routes/ArmorUpgrade.jsx'
 
 const Applayout = () => {
   return (
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: '/power_armor/:armorId',
         element: <ArmorDetail/>
+      }, 
+      {
+        path: '/armor/upgrade/:upgradeId',
+        element: <ArmorUpgrade/>
+      }, 
+      {
+        path: '/power_armor/upgrade/:upgradeId',
+        element: <ArmorUpgrade/>
       }
     ]
   }

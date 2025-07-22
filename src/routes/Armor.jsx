@@ -9,7 +9,7 @@ export default function Armor() {
 
     const getPowerArmorData = async () => {
         try {
-            var res = await fetch('http://localhost:3000/power_armor')
+            var res = await fetch('http://192.168.0.149:3000/power_armor')
             const data = await res.json()
             setPowerArmorData(data)
         } catch (err) {
@@ -19,7 +19,7 @@ export default function Armor() {
 
     const getArmorData = async () => {
         try {
-            var res = await fetch('http://localhost:3000/armor')
+            var res = await fetch('http://192.168.0.149:3000/armor')
             const data = await res.json()
             setArmorData(data)
         } catch (err) {
