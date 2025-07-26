@@ -9,11 +9,25 @@
   aspect-ratio: 4/3;
   text-align: center;
   cursor: pointer;
+  transition: all .3s ease;
 }
 
+.backbutton {
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+  scale: 1.3
+}
+
+.backbutton:hover {
+  scale: 1.5;
+}
 
 @media (prefers-color-scheme: light) {
-    .upgradeCell {
-        background-color: lightgrey;
-    }
+  .upgradeCell {
+    background-color: lightgrey;
+  }
+
+  .upgradeCell:hover {
+    background-color: rgba(0, 0, 0, .12);
+  }
 }

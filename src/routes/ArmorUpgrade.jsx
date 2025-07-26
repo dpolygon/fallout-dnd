@@ -12,8 +12,8 @@ export default function ArmorUpgrade() {
 
     const getUpgradeData = async () => {
         try {
-            const res = await fetch(isPowerArmor ? `http://192.168.0.149:3000/power_armor_upgrades/${upgradeId}`
-                : `http://192.168.0.149:3000/armor_upgrades/${upgradeId}`)
+            const res = await fetch(isPowerArmor ? `http://localhost:3000/power_armor_upgrades/${upgradeId}`
+                : `http://localhost:3000/armor_upgrades/${upgradeId}`)
             const data = await res.json()
             setUpgrade(data)
             console.log('armor data successfully retreived')
