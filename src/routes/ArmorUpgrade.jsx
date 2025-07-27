@@ -1,14 +1,19 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import './ArmorUpgrade.css'
 
 export default function ArmorUpgrade() {
     const { upgradeId } = useParams()
+    const navigate = useNavigate()
     const [upgrade, setUpgrade] = useState(null)
     const isPowerArmor = location.pathname.includes('/power_armor/')
+
+    function handleBack() {
+        navigate(-1)
+    }
 
     const getUpgradeData = async () => {
         try {
@@ -26,13 +31,16 @@ export default function ArmorUpgrade() {
         getUpgradeData()
     }, [upgradeId])
 
-    if (!upgrade) return <div>Loading...</div>;
+    if (!upgrade || !upgrade.ranks) return <div>Loading...</div>;
 
 
     return (
-        <div style={{ padding: '7rem 0 0 0' }}>
+        <div style={{ padding: '10rem 0 0 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <h2>{upgrade.name}</h2>
+                                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem'}}>
+                    <div onClick={handleBack} className='backbutton'>&#x2B05;</div>
+                    <h2>{upgrade.name}</h2>
+                </div>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
                     <img src='/cap.png' style={{ height: '25px' }}></img>
                     <h2>{upgrade.name === 'Super Mutant Fitting' ? "1/2 base armor" : upgrade.base_cost} caps</h2>
@@ -42,7 +50,8 @@ export default function ArmorUpgrade() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '1rem' }}>
                 {upgrade.ranks && Object.entries(upgrade.ranks).map(([ranknum, rank]) => {
                     var keys = Object.keys(rank)
-                    var filtered_keys = keys.filter(key => key !== "effect")
+                    const excludedKeys = ["effect", "craft"];
+                    const filtered_keys = keys.filter(key => !excludedKeys.includes(key));
 
                     return (
                         <div key={ranknum} className='rank-card'>

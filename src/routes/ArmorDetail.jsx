@@ -7,7 +7,6 @@ export default function ArmorDetail() {
     const navigate = useNavigate()
     const [armor, setArmor] = useState([])
     const [upgrades, setUpgrades] = useState([])
-    const [crafting, setCrafting] = useState([])
     const isPowerArmor = location.pathname.includes('/power_armor/')
 
     function handleBack() {
@@ -38,31 +37,17 @@ export default function ArmorDetail() {
         }
     }
 
-    const getArmorCrafting = async () => {
-        try {
-            const res = await fetch(isPowerArmor ? `http://localhost:3000/power_armor_crafting/${armorId}`
-                : `http://localhost:3000/armor_crafting/${armorId}`
-            )
-            const data = await res.json()
-            setCrafting(data)
-            console.log('armor crafting successfully retreived')
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     useEffect(() => {
         getArmorData()
         getArmorUpgrades()
-        getArmorCrafting()
     }, [armorId])
 
-    if (!armor || !crafting || !upgrades || !crafting.materials) return <div>Loading...</div>;
+    if (!armor || !upgrades || !armor.craft ) return <div>Loading...</div>;
 
     return (
         <div style={{ padding: '10rem 0 0 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem'}}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
                     <div onClick={handleBack} className='backbutton'>&#x2B05;</div>
                     <h2>{armor.name}</h2>
                 </div>
@@ -82,34 +67,40 @@ export default function ArmorDetail() {
             </div>
             <h3>{armor.description}</h3>
             <h2 style={{ textAlign: 'left' }}>Upgrades</h2>
-            <div style={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', gap: '1rem' }}>
+            <div className='upgrades' style={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', gap: '1rem' }}>
                 {upgrades.map(upgrade =>
-                    <div onClick={() => window.location.href = isPowerArmor ? `/power_armor/upgrade/${upgrade.name}` : `/armor/upgrade/${upgrade.name}`} className='upgradeCell' >{upgrade.name}</div>
+                    <h4 onClick={() => window.location.href = isPowerArmor ? `/power_armor/upgrade/${upgrade.name}` : `/armor/upgrade/${upgrade.name}`} className='upgradeCell' >{upgrade.name}</h4>
                 )}
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', padding: '2rem 0 0 0', gap: '2rem' }}>
-                <div style={{ width: '400px', height: 'auto', background: 'lightgrey', borderRadius: '32px', textAlign: 'left', padding: '2rem' }}>
+                <div className='craftingRepairCells' style={{ width: '400px', height: 'auto', borderRadius: '32px', textAlign: 'left', padding: '2rem' }}>
                     <h2>Crafting Recipe</h2>
-                    <h4>DC: {crafting.dc}</h4>
-                    <h4>Time Required:  {crafting.time}</h4>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'start' }}>
+                        <h4 style={{ whiteSpace: 'nowrap' }}>DC: {armor.craft.dc}</h4>
+                        <h4>|</h4>
+                        <h4>Time Required:  {armor.craft.time}</h4>
+                    </div>
                     <h4>Materials Needed: </h4>
-                    {console.log(crafting.materials)}
+                    {console.log(armor.craft.materials)}
                     {
-                        Object.entries(crafting.materials).map(([name, amount]) =>
+                        Object.entries(armor.craft.materials).map(([name, amount]) =>
                             <h5>x{amount} {name}</h5>
                         )
                     }
                 </div>
-                <div style={{ width: '400px', height: 'auto', background: 'lightgrey', borderRadius: '32px', textAlign: 'left', padding: '2rem' }}>
-                    <h2>Repair Level of Decay</h2>
-                    <h4>DC: {crafting.repair.dc}</h4>
-                    <h4>Time Required: {crafting.repair.time}</h4>
+                <div className='craftingRepairCells' style={{ width: '400px', height: 'auto', borderRadius: '32px', textAlign: 'left', padding: '2rem' }}>
+                    <h2>Repair Decay</h2>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'start' }}>
+                        <h4 style={{ whiteSpace: 'nowrap'}}>DC: {armor.repair.dc}</h4>
+                        <h4>|</h4>
+                        <h4>Time Required: {armor.repair.time}</h4>
+                    </div>
                     <h4>Materials Needed:</h4>
                     {
-                        typeof crafting.repair.materials === 'string' ?
-                            (<h5>{crafting.repair.materials}</h5>)
+                        typeof armor.repair.materials === 'string' ?
+                            (<h5>{armor.repair.materials}</h5>)
                             :
-                            (Object.entries(crafting.repair.materials).map(([name, amount]) =>
+                            (Object.entries(armor.repair.materials).map(([name, amount]) =>
                                 <h5>x{amount} {name}</h5>
                             ))
                     }
