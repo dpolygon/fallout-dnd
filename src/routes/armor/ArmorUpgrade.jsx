@@ -37,7 +37,7 @@ export default function ArmorUpgrade() {
     return (
         <div style={{ padding: '10rem 0 0 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem'}}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
                     <div onClick={handleBack} className='backbutton'>&#x2B05;</div>
                     <h2>{upgrade.name}</h2>
                 </div>
@@ -48,7 +48,7 @@ export default function ArmorUpgrade() {
             </div>
             <h3>{upgrade.description}</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '1rem' }}>
-                {upgrade.ranks && Object.entries(upgrade.ranks).map(([ranknum, rank]) => {
+                {Object.entries(upgrade.ranks).map(([ranknum, rank]) => {
                     var keys = Object.keys(rank)
                     const excludedKeys = ["effect", "craft"];
                     const filtered_keys = keys.filter(key => !excludedKeys.includes(key));
@@ -56,22 +56,38 @@ export default function ArmorUpgrade() {
                     return (
                         <div key={ranknum} className='rank-card'>
                             <div>
-                                <h3>Rank {ranknum}</h3>
-                                <h5>{rank.effect}</h5>
+                                <div style={{ minHeight: '5rem' }}>
+                                    <h3>Rank {ranknum}</h3>
+                                    <h5>{rank.effect}</h5>
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '1rem' }}>
+                                    {filtered_keys.map((key) =>
+                                        <div style={{ textAlign: 'center' }}>
+                                            <h4>{key}:</h4>
+                                            <h5>{rank[key]}</h5>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '1rem' }}>
-                                {filtered_keys.map((key) =>
-                                    <div style={{ textAlign: 'center' }}>
-                                        <h5>{key}:</h5>
-                                        <h5>{rank[key]}</h5>
+
+                            {rank.craft?.materials &&
+                                (<div style={{ minHeight: '15rem' }}>
+                                    <div style={{ display: 'inline', textAlign: 'center' }}>
+                                        <h3>required</h3>
+                                        <div style={{}}>
+                                            <h5>dc: {rank.craft?.dc}</h5>
+                                            {rank.craft?.materials && Object.entries(rank.craft.materials).map(([name, amount]) =>
+                                                <h5 style={{ justifyItems: 'start' }}>{name}: x{amount}</h5>
+                                            )}
+                                        </div>
                                     </div>
-                                )}
-                            </div>
+                                    <h3>time: <h5 style={{ display: 'inline' }}>{upgrade.time}</h5></h3>
+                                </div>)
+                            }
                         </div>
                     )
                 })}
             </div>
-
         </div>
     )
 }

@@ -9,9 +9,10 @@ import {
 import './index.css'
 import Navbar from './components/navbar.jsx'
 import Home from './routes/Home.jsx'
-import Armor from './routes/Armor.jsx'
-import ArmorDetail from './routes/ArmorDetail.jsx'
-import ArmorUpgrade from './routes/ArmorUpgrade.jsx'
+import Armor from './routes/armor/Armor.jsx'
+import ArmorDetail from './routes/armor/ArmorDetail.jsx'
+import ArmorUpgrade from './routes/armor/ArmorUpgrade.jsx'
+import Weapons from './routes/weapons/Weapons.jsx'
 
 const Applayout = () => {
   return (
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: '/power_armor/upgrade/:upgradeId',
         element: <ArmorUpgrade/>
+      }, 
+      {
+        path: '/weapons',
+        element: <Weapons/>
       }
     ]
   }

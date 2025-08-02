@@ -34,7 +34,7 @@ export default function Navbar() {
   const getRouteTitle = (pathname) => {
     if (pathname === '/') return 'Home';
     if (pathname.startsWith('/armor') || pathname.startsWith('/power_armor')) return 'Armor';
-    if (pathname.startsWith('/commercial')) return 'Commercial';
+    if (pathname.startsWith('/weapons')) return 'Weapons';
     if (pathname.startsWith('/contact')) return 'Contact';
     if (pathname.startsWith('/about')) return 'About Us';
     return 'Fallout App'; // fallback
